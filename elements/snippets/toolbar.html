@@ -1,0 +1,18 @@
+<div class="toolbar">
+    <div class="toolbar__container">
+        {% if position != 'bottom' %}
+        {% endif %}
+
+        <div class="toolbar__wrapper">
+            <div class="paginate__count">
+                {{ paginate.counter('<span> {:count} produto(s) </span> encontrado(s)') }}
+            </div>
+            {% if position != 'bottom' %}
+            <div class="toolbar__filter">{% element 'snippets/filter' { brands: brands } %}</div>
+            {% endif %}
+
+            <div class="toolbar__paginate">{% element 'snippets/paginate' %}</div>
+        </div>
+
+    </div>
+</div>

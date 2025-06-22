@@ -1,0 +1,19 @@
+
+{% if settings.showLGPDAlert %}
+<div class="lgpd-alert">
+    <div class="lgpd-alert__container">
+        <p>
+            {% if settings.textCookies %}
+                {{ settings.textCookies }}
+            {% else %}
+                Utilizamos cookies para oferecer melhor experiência, melhorar o desempenho, analizar como você interage em nosso site e personalizar conte&uacute;do. <br>
+                Ao utilizar este site, você concorda com o uso de cookies
+            {% endif %}
+        </p>
+        <button class="lgpd-alert__close">Ok, entendi</button>
+    </div>
+</div>
+{% endif %}
+
+
+

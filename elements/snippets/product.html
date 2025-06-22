@@ -1,0 +1,271 @@
+<article class="product" itemscope itemtype="http://schema.org/SomeProducts">
+    <article style="display: none">
+        {% set dateFinal = product.deactivation_date | split('-') %}
+        {% set dateModified = product.modified | split('-') %}
+        {% set year = dateFinal[0] <= 0 ? dateModified[0] + 50 : product.deactivation_date %} {% set month=dateFinal[1]
+            <=0 ? dateModified[1] + 01 : product.deactivation_date %} {% set day=dateFinal[2] <=0 ? dateModified[2] + 01
+            : product.deactivation_date %} {% set dateDeactivation=dateFinal[0] <=0 ? year ~ "-" ~ month ~ "-" ~ day :
+            product.deactivation_date %} {% if product.brand %} <span itemprop="brand">{{ product.brand }}</span>
+        {% else %}
+        <span itemprop="brand">Sem marca</span>
+        {% endif %}
+        <span itemprop="sku">{{ product.id }}</span>
+        <span itemprop="description">{{ product.name }}</span>
+        <span itemprop="gtin8">{{ product.id }}</span>
+        <span itemprop="name">{{ product.name }}</span>
+        <span itemprop="description">{{ product.description ? product.description : product.description_small
+                }}</span>
+
+        {% if product.ranking.rating >= 5 %}
+        <div itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating">
+            <span itemprop="ratingValue">{{product.ranking.rating}}</span>
+            <span itemprop="reviewCount">{{ product.ranking.count }}</span>
+        </div>
+        {% else %}
+        <div itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating">
+            <span itemprop="ratingValue">4</span>
+            <span itemprop="reviewCount">4</span>
+        </div>
+        {% endif %}
+
+        <ul itemprop="review" itemscope itemtype="http://schema.org/Review">
+            {% if product.comments %}
+            {% for comment in product.comments %}
+
+            {% set author = comment.customer.name != "" ? comment.customer.name : "Anônimo" %}
+
+            <span itemprop="name"> {{ product.name }} </span>
+            <span itemprop="author">{{ author }}</span>
+            <meta itemprop="datePublished" content="{{ comment.date }}">{{ comment.date }}
+            <div itemprop="reviewRating" itemscope itemtype="http://schema.org/Rating">
+                <meta itemprop="worstRating" content="0" />
+                <span itemprop="ratingValue">{{ comment.rating }}</span>
+                <span itemprop="bestRating">{{ comment.rating }}</span>
+            </div>
+            <span itemprop="description">{{ comment.comment }}</span>
+
+            {% endfor %}
+
+            {% else %}
+
+            {% set author = comment.customer.name != "" ? comment.customer.name : "Anônimo" %}
+
+            {% if author == "Anônimo" %}
+            <span itemprop="author">{{ author }}</span>
+            {% endif %}
+
+            {% endif %}
+
+        </ul>
+
+
+        <a href="{{ product.link }}">
+            <img class="img-responsive lazy" data-original="{{ product.images[0].full }}"
+                src="{{ asset('img/loading.gif') }}" alt="{{ product.name }}" itemprop="image" layout="responsive">
+        </a>
+
+        <div itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+            <span itemprop="url"> {{ product.link }} </span>
+            <span itemprop="priceValidUntil"> {{ dateDeactivation }}</span>
+            <a itemprop="url"> {{ product.link }} </a>
+
+            {% if product.available and product.stock > 0 %}
+            <link itemprop="availability" href="http://schema.org/InStock" />In stock
+            {% else %}
+            <meta itemprop="availability" content="http://schema.org/SoldOut">
+            {% endif %}
+            <span itemprop="priceCurrency" content="BRL">R$ </span>
+            <span itemprop="price" content="{{ product.price_offer }}">{{ product.price_offer|currency }}</span>
+        </div>
+
+    </article>
+
+    <div class="product__header">
+        {% if pages.current == 'home' %}
+        <figure class="product__figure">
+            {% if product.images %}
+            <a class="product__link" href="{{ settings.buy_to_cart ? links.cart_add ~ product.id : product.link }}"
+                data-tray-tst="vitrine_produto_link_imagem">
+
+                {% if product.images[0] and product.images[1] %}
+                <img loading=lazy class="product__image product__image--on lazy-new" src="{{ product.images[0].small }}"
+                    data-src="{{ product.images[0].full }}" data-srcset="{{ product.images[0].full }}"
+                    alt="{{ product.name }}" title="{{ product.name }}" width="180" height="180" layout="responsive">
+
+                <img loading=lazy class="product__image product__image--hover lazy-new"
+                    src="{{ product.images[1].small }}" data-src="{{ product.images[1].full }}"
+                    data-srcset="{{ product.images[1].full }}" alt="{{ product.name }}" title="{{ product.name }}"
+                    width="180" height="180" layout="responsive">
+
+                {% else %}
+                <img loading=lazy class="product__image lazy-new" src="{{ product.images[0].small }}"
+                    data-src="{{ product.images[0].full }}" data-srcset="{{ product.images[0].full }}"
+                    alt="{{ product.name }}" title="{{ product.name }}" width="180" height="180" layout="responsive">
+
+                {% endif %}
+            </a>
+            {% else %}
+            <a class="product__link" href="{{ settings.buy_to_cart ? links.cart_add ~ product.id : product.link }}"
+                data-tray-tst="vitrine_produto_link_imagem">
+                <img class="product__image lazy-new" src="{{ product.images[0].small }}"
+                    data-src="{{ product.images[0].full }}" data-srcset="{{ product.images[0].full }}"
+                    alt="{{ product.name }}" title="{{ product.name }}" width="180" height="180" layout="responsive">
+            </a>
+            {% endif %}
+        </figure>
+        {% else %}
+        <a class="product__link" href="{{ settings.buy_to_cart ? links.cart_add ~ product.id : product.link }}"
+            data-tray-tst="vitrine_produto_link_imagem">
+            <figure class="product__figure">
+                {% if product.images %}
+                {% if product.images[0] and product.images[1] %}
+                <img loading=lazy class="product__image product__image--on" src="{{ product.images[0].full }}"
+                    data-src="{{ product.images[0].full }}" data-srcset="{{ product.images[0].full }}"
+                    alt="{{ product.name }}" title="{{ product.name }}" width="180" height="180" layout="responsive">
+
+                <img loading=lazy class="product__image product__image--hover lazy-new"
+                    src="{{ product.images[1].full }}" data-src="{{ product.images[1].full }}"
+                    data-srcset="{{ product.images[1].full }}" alt="{{ product.name }}" title="{{ product.name }}"
+                    width="180" height="180" layout="responsive">
+
+                {% else %}
+                <img loading=lazy class="product__image" src="{{ product.images[0].full }}"
+                    data-src="{{ product.images[0].full }}" data-srcset="{{ product.images[0].full }}"
+                    alt="{{ product.name }}" title="{{ product.name }}" width="180" height="180" layout="responsive">
+
+                {% endif %}
+                {% else %}
+                <a class="product__link" href="{{ settings.buy_to_cart ? links.cart_add ~ product.id : product.link }}"
+                    data-tray-tst="vitrine_produto_link_imagem">
+                    <img class="product__image" src="{{ product.images[0].full }}" alt="{{ product.name }}"
+                        title="{{ product.name }}" width="180" height="180" layout="responsive">
+                </a>
+                {% endif %}
+            </figure>
+        </a>
+        {% endif %}
+
+
+        {% element 'snippets/flags' {product:product} %}
+    </div>
+
+    <div class="product__main">
+        <h1 class="product__name"><a class="product__link"
+                href="{{ settings.buy_to_cart ? links.cart_add ~ product.id : product.link }}"
+                data-tray-tst="vitrine_produto_link_imagem">{{ product.name }}</a></h1>
+
+        {% if settings.showRating %}
+        {% element 'snippets/rating-short' {product:product} %}
+        {% endif %}
+
+        <div class="pricing" data-module="pricing" data-snippet="snippets/product-payment"
+            data-product-id="{{ product.id }}">
+            Carregando...
+        </div>
+
+        <!-- Desconto -->
+        {% set porcentagemDesconto = 100 - ( product.price_offer / product.price ) * 100 %}
+        {% if porcentagemDesconto < 100 %} <span class="flags__discount"> {{ porcentagemDesconto|number_format }}% OFF
+        </span>
+        {% endif %}
+
+        {% if pages.current == 'catalog' and settings.compare %}
+        <div class="product__compare">
+            {% set hideCompare = 'compare-hidden' %}
+            <a data-compare="remove" href="{{ links.compare_delete ~ product.id }}"
+                class="compare__button compare__button--remove {{ not product.compare ? hideCompare }}">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16.5" height="16.5" viewBox="0 0 16.5 16.5">
+                    <g id="Grupo_817" data-name="Grupo 817" transform="translate(0.25 0.25)">
+                        <path id="Shape"
+                            d="M8,16A8,8,0,0,1,2.344,2.343,8,8,0,0,1,16,8a8,8,0,0,1-8,8ZM8,.938A7.062,7.062,0,1,0,15.063,8,7.07,7.07,0,0,0,8,.938Z" stroke-miterlimit="10" stroke-width="0.5" />
+                        <g id="_1828747" data-name="1828747" transform="translate(4.653 4.691)">
+                            <path id="Caminho_553" data-name="Caminho 553"
+                                d="M.379,6.617a.341.341,0,0,1-.241-.581L6.074.1a.34.34,0,0,1,.481.481L.62,6.517A.341.341,0,0,1,.379,6.617Zm0,0"/>
+                            <path id="Caminho_554" data-name="Caminho 554"
+                                d="M6.315,6.617a.338.338,0,0,1-.241-.1L.139.581A.34.34,0,0,1,.62.1L6.556,6.035a.341.341,0,0,1-.24.581Zm0,0"/>
+                        </g>
+                    </g>
+                </svg>
+
+
+                Remover compara&#231;&#227;o
+            </a>
+
+            <a data-compare="add" href="{{ links.compare_add  ~ product.id }}"
+                class="compare__button compare__button--add {{ product.compare ? hideCompare }}">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16.5" height="16.5" viewBox="0 0 16.5 16.5">
+                    <g id="_907830" data-name="907830" transform="translate(0.25 0.25)">
+                        <path id="Shape"
+                            d="M8,16A8,8,0,0,1,2.344,2.343,8,8,0,0,1,16,8a8,8,0,0,1-8,8ZM8,.938A7.062,7.062,0,1,0,15.063,8,7.07,7.07,0,0,0,8,.938Z" stroke-miterlimit="10" stroke-width="0.5" />
+                        <path id="Path"
+                            d="M7.861.127a.505.505,0,0,0-.67,0L3.01,3.954.808,1.939a.505.505,0,0,0-.67,0,.408.408,0,0,0,0,.613L2.675,4.873a.505.505,0,0,0,.67,0L7.861.74A.408.408,0,0,0,7.861.127Z" transform="translate(4 5)" stroke-miterlimit="10"stroke-width="0.5" />
+                    </g>
+                </svg>
+                Comparar produtos
+            </a>
+        </div>
+        {% endif %}
+
+        {% for discount in product.ProgressiveDiscounts %}
+        {% if discount.tag %}
+        <div class="banner-progressive-discounts">
+            <p>{{discount.description}}</p>
+        </div>
+        {% endif %}
+        {% endfor %}
+
+    </div>
+
+    <div class="product__actions"
+        data-check="{{ product.AdditionalInfo ? 'additional' : product.has_variation ? 'variation' : 'normal'}}">
+        {% if product.stock > 0 or settings.without_stock_sale %}
+        {% if product.is_kit %}
+        <a class="product__button" href="{{ settings.buy_to_cart ? links.cart_add ~ product.id : product.link }}">
+            Ver detalhes
+        </a>
+        {% elseif product.upon_request %}
+        <div class="product__on-request">Produto Sob Consulta</div>
+        {% else %}
+        {% if settings.buyShowCase %}
+        {% if product.has_variation %}
+        <a class="product__button" href="{{ settings.buy_to_cart ? links.cart_add ~ product.id : product.link }}">
+            Ver detalhes
+        </a>
+        <button class="quick__button product__quickviwer" data-quickview-button type="button"
+        data-id="{{ product.id }}">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20.009" height="20.009" viewBox="0 0 20.009 20.009">
+            <path id="Caminho_155" data-name="Caminho 155"
+                d="M21.8,20.782l-5.3-5.29A8.235,8.235,0,1,0,15.492,16.5l5.3,5.3A.715.715,0,0,0,21.8,20.789ZM3.418,10.209A6.791,6.791,0,1,1,10.209,17a6.791,6.791,0,0,1-6.791-6.791Zm12.153,0c0-1.716-2.781-2.5-5.361-2.5s-5.361.786-5.361,2.5a.715.715,0,0,0,1.43,0c0-.193.586-.55,1.573-.8a2.466,2.466,0,0,0-.143.8,2.5,2.5,0,1,0,5,0,2.466,2.466,0,0,0-.143-.8c.986.25,1.544.608,1.573.8a.715.715,0,1,0,1.43,0Zm-4.289,0a1.072,1.072,0,1,1-1.072-1.072A1.072,1.072,0,0,1,11.282,10.209Z"
+                transform="translate(-1.96 -1.96)" />
+        </svg>
+        Espiar
+        </button>
+        {% else %}
+        <button type="button" class="product__button" data-cart="buy" data-id="{{ product.id }}">
+            Comprar
+        </button>
+        <button class="quick__button product__quickviwer" data-quickview-button type="button"
+            data-id="{{ product.id }}">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20.009" height="20.009" viewBox="0 0 20.009 20.009">
+                <path id="Caminho_155" data-name="Caminho 155"
+                    d="M21.8,20.782l-5.3-5.29A8.235,8.235,0,1,0,15.492,16.5l5.3,5.3A.715.715,0,0,0,21.8,20.789ZM3.418,10.209A6.791,6.791,0,1,1,10.209,17a6.791,6.791,0,0,1-6.791-6.791Zm12.153,0c0-1.716-2.781-2.5-5.361-2.5s-5.361.786-5.361,2.5a.715.715,0,0,0,1.43,0c0-.193.586-.55,1.573-.8a2.466,2.466,0,0,0-.143.8,2.5,2.5,0,1,0,5,0,2.466,2.466,0,0,0-.143-.8c.986.25,1.544.608,1.573.8a.715.715,0,1,0,1.43,0Zm-4.289,0a1.072,1.072,0,1,1-1.072-1.072A1.072,1.072,0,0,1,11.282,10.209Z"
+                    transform="translate(-1.96 -1.96)" />
+            </svg>
+            Espiar
+        </button>
+        {% endif %}
+        {% else %}
+        <a class="product__button" href="{{ settings.buy_to_cart ? links.cart_add ~ product.id : product.link }}">
+            Comprar
+        </a>
+        {% endif %}
+        {% endif %}
+        {% else %}
+        <span class="product__unavailable">
+            Indispon&iacute;vel
+        </span>
+        {% endif %}
+
+    </div>
+
+</article>

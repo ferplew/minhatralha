@@ -1,0 +1,29 @@
+<div class="customer__container">
+    <div class="customer__header">
+        <a class="customer__link--header" href="{{ links.login }}">
+            <svg xmlns="http://www.w3.org/2000/svg" width="19.227" height="19.156" viewBox="0 0 19.227 19.156">
+                <path id="Caminho_31" data-name="Caminho 31" d="M1490.358-80.909a8.251,8.251,0,0,1,8.316,7.613h-16.631a8.251,8.251,0,0,1,8.315-7.613m-4.129-5.021a4.081,4.081,0,0,1,4.129-4.022,4.081,4.081,0,0,1,4.129,4.022,4.08,4.08,0,0,1-4.129,4.021,4.08,4.08,0,0,1-4.129-4.021M1481-72.8a.507.507,0,0,0,.513.5h17.7a.506.506,0,0,0,.513-.5.494.494,0,0,0-.01-.1,9.168,9.168,0,0,0-6.826-8.662,5,5,0,0,0,2.623-4.368,5.1,5.1,0,0,0-5.156-5.022,5.1,5.1,0,0,0-5.156,5.022,5,5,0,0,0,2.624,4.368A9.163,9.163,0,0,0,1481-72.8" transform="translate(-1480.75 91.202)" stroke-width="0.5" fill-rule="evenodd"/>
+            </svg>
+            Entrar
+        </a>
+    </div>
+    <div class="customer__dropdown">
+        <div class="customer__in tray-hide" data-logged-user="false">
+            <a class="customer__button" href="{{ links.login }}">
+                Entrar
+            </a>
+            <span class="customer__label">
+                Ainda n&atilde;o tem conta?
+            </span>
+            <a class="customer__link--register" href="{{ links.register }}">
+                Cadastre-se
+            </a>
+        </div>
+        <div class="customer__out tray-hide" data-logged-user="true">
+            <a class="customer__link" href="{{ links.account }}">Minha conta</a>
+            <a class="customer__link" href="{{ links.orders }}">Meus pedidos</a>
+            <a class="customer__link" href="http://www2.correios.com.br/SISTEMAS/RASTREAMENTO/">Rastrear pedido</a>
+            <a class="customer__link" href="{{ links.logout }}">Sair</a>
+        </div>
+    </div>
+</div>

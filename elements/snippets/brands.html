@@ -1,0 +1,87 @@
+{% if settings.showBrands %}
+<section class="marcas">
+    <div class="marcas__container">
+        <span class="marcas__title">Compre <br>por marca</span>
+        <div class="marcas__content">
+            {% if settings.activeCarousel %}
+            <ul class="marcas__list" data-carousel="true">
+                {% else %}
+                <ul class="marcas__list" data-carousel="false">
+                    {% endif %}
+
+                    {% if settings.marcaImg1 %}
+                    <li class="marcas__item">
+                        <a href="{{ settings.marcaLink1 }}" class="marcas__link">
+                            <img src="{{ asset(settings.marcaImg1) }}">
+                        </a>
+                    </li>
+                    {% endif %}
+
+                    {% if settings.marcaImg2 %}
+                    <li class="marcas__item">
+                        <a href="{{ settings.marcaLink2 }}" class="marcas__link">
+                            <img src="{{ asset(settings.marcaImg2) }}">
+                        </a>
+                    </li>
+                    {% endif %}
+
+                    {% if settings.marcaImg3 %}
+                    <li class="marcas__item">
+                        <a href="{{ settings.marcaLink3 }}" class="marcas__link">
+                            <img src="{{ asset(settings.marcaImg3) }}">
+                        </a>
+                    </li>
+                    {% endif %}
+
+                    {% if settings.marcaImg4 %}
+                    <li class="marcas__item">
+                        <a href="{{ settings.marcaLink4 }}" class="marcas__link">
+                            <img src="{{ asset(settings.marcaImg4) }}">
+                        </a>
+                    </li>
+                    {% endif %}
+
+                    {% if settings.marcaImg5 %}
+                    <li class="marcas__item">
+                        <a href="{{ settings.marcaLink5 }}" class="marcas__link">
+                            <img src="{{ asset(settings.marcaImg5) }}">
+                        </a>
+                    </li>
+                    {% endif %}
+
+                    {% if settings.marcaImg6 %}
+                    <li class="marcas__item">
+                        <a href="{{ settings.marcaLink6 }}" class="marcas__link">
+                            <img src="{{ asset(settings.marcaImg6) }}">
+                        </a>
+                    </li>
+                    {% endif %}
+
+                    {% if settings.marcaImg7 %}
+                    <li class="marcas__item">
+                        <a href="{{ settings.marcaLink7 }}" class="marcas__link">
+                            <img src="{{ asset(settings.marcaImg7) }}">
+                        </a>
+                    </li>
+                    {% endif %}
+
+                    {% if settings.marcaImg8 %}
+                    <li class="marcas__item">
+                        <a href="{{ settings.marcaLink8 }}" class="marcas__link">
+                            <img src="{{ asset(settings.marcaImg8) }}">
+                        </a>
+                    </li>
+                    {% endif %}
+
+                    {% if settings.marcaImg9 %}
+                    <li class="marcas__item">
+                        <a href="{{ settings.marcaLink9 }}" class="marcas__link">
+                            <img src="{{ asset(settings.marcaImg9) }}">
+                        </a>
+                    </li>
+                    {% endif %}
+                </ul>
+        </div>
+    </div>
+</section>
+{% endif %}

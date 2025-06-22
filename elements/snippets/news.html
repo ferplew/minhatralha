@@ -1,0 +1,32 @@
+{% if settings.showNews %}
+
+{% if settings.activeCarousel %}
+<section class="news" data-carousel="true">
+    {% else %}
+    <section class="news" data-carousel="false">
+        {% endif %}
+        <div class="news__container">
+            <div class="news__header">
+                <span class="news__title">
+                    {% if settings.newsSubTitle %}
+                    <p>{{ settings.newsSubTitle }}</p>
+                    {% endif %}
+                    {% if settings.newsTitle %}
+                    <strong>{{ settings.newsTitle }}</strong>
+                    {% endif %}
+                </span>
+            </div>
+            <div class="news__informations">
+                {% if settings.logoNews %}
+                <div class="news__logo">
+                    <img src="{{ asset(settings.logoNews) }}" alt="Logo not&iacute;cias">
+                </div>
+                {% endif %}
+                <div class="news__content">
+                    {% element 'News.news' %}
+                </div>
+            </div>
+        </div>
+    </section>
+    {% endif %}
+    

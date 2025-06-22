@@ -1,0 +1,13 @@
+<div class="search">
+  <form class="search__form" role="form" action="{{ links.search }}" method="get" data-search="suggestion">
+      <input type="hidden" name="loja" value="{{ store.id }}" />
+      <label for="search" style="font-size: 0">search</label>
+      <input class="search__input" id="search" placeholder="Digite o que você procura" type="text" data-input="suggestion" placeholder="{{ Translation('buscar') }}" name="palavra_busca" tabindex="1" data-tray-tst="busca_palavra" required />
+      <button class="search__button" type="submit" tabindex="2" aria-label="busca" data-tray-tst="botao_buscar">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20.74" height="20.68" viewBox="0 0 20.74 20.68">
+          <path id="Path_110" data-name="Path 110" d="M1444.437-89.679a7.2,7.2,0,0,1,7.19,7.19,7.2,7.2,0,0,1-7.19,7.19,7.2,7.2,0,0,1-7.19-7.19,7.2,7.2,0,0,1,7.19-7.19m0,15.38a8.148,8.148,0,0,0,5.418-2.065l5.218,5.218a.5.5,0,0,0,.354.146.5.5,0,0,0,.354-.146.5.5,0,0,0,0-.707l-5.219-5.219a8.14,8.14,0,0,0,2.065-5.417,8.2,8.2,0,0,0-8.19-8.19,8.2,8.2,0,0,0-8.19,8.19,8.2,8.2,0,0,0,8.19,8.19" transform="translate(-1435.747 91.179)" stroke-width="1" fill-rule="evenodd"/>
+        </svg>                  
+          buscar
+      </button>
+  </form>
+</div>

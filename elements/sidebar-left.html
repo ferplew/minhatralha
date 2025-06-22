@@ -1,0 +1,24 @@
+<div id="filter" class="page-catalog__left">
+    <div class="page-catalog__filters">
+        <button aria-controls="filter" type="button" class="button button__close button__close--filter">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20.001" viewBox="0 0 20 20.001">
+                <g id="_1828747" data-name="1828747" transform="translate(-0.039)">
+                    <path id="Caminho_553" data-name="Caminho 553" d="M1.068,20A1.029,1.029,0,0,1,.34,18.243L18.283.3a1.029,1.029,0,1,1,1.455,1.455L1.8,19.7A1.032,1.032,0,0,1,1.068,20Zm0,0" fill="#fff"/>
+                    <path id="Caminho_554" data-name="Caminho 554" d="M19.011,20a1.021,1.021,0,0,1-.727-.3L.34,1.757A1.029,1.029,0,0,1,1.8.3L19.738,18.243A1.029,1.029,0,0,1,19.011,20Zm0,0" fill="#fff"/>
+                </g>
+            </svg>
+        </button>
+        <div class="page-catalog__filters-scroll">
+            {% element 'filter' {
+                'brands': category.brands
+            } %}
+        </div>
+    </div>
+    <button aria-controls="filter" type="button" class="button button__mask button__mask--filter"></button>
+</div>
+
+<button aria-controls="filter" type="button" class="button button__filter">
+    Filtrar
+</button>
+
+

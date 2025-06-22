@@ -1,0 +1,164 @@
+{% if settings.showMethods %}
+{% if settings.activeCarousel %}
+<div class="methods__title">
+    <p>Navegue por departamento</p>
+</div>
+<div class="methods" data-carousel="true">
+{% else %}
+<div class="methods" data-carousel="false">
+{% endif %}
+
+
+    <div class="methods__container">
+        <div class="methods__ul">
+            {% if settings.methodImg1 %}
+            <div class="methods__item">
+                <a href="{{ settings.methodLink1 }}" class="methods__link" >
+                    <figure class="methods__image">
+                        <img class="product__image lazy-new methods__image" src="{{ asset(settings.methodImg1) }}"
+                        data-src="{{ asset(settings.methodImg1) }}" data-srcset="{{ asset(settings.methodImg1) }}"
+                        alt="{{ settings.methodName01 }}" title="{{ settings.methodName01 }}" layout="responsive" width="150"
+                        height="150">
+                    </figure>
+                    
+                    <span class="methods__name">
+                        {{ settings.methodName01 }}
+                    </span>
+                </a>
+            </div>
+            {% endif %}
+            {% if settings.methodImg2 %}
+            <div class="methods__item">
+                <a href="{{ settings.methodLink2 }}" class="methods__link" >
+                    <figure class="methods__image">
+                        <img class="product__image lazy-new methods__image" src="{{ asset(settings.methodImg2) }}"
+                        data-src="{{ asset(settings.method01) }}" data-srcset="{{ asset(settings.methodImg2) }}"
+                        alt="{{ settings.methodName02 }}" title="{{ settings.methodName02 }}" layout="responsive" width="150"
+                        height="150">
+                    </figure>
+
+                    <span class="methods__name">
+                        {{ settings.methodName02 }}
+                    </span>
+                </a>
+            </div>
+            {% endif %}
+            {% if settings.methodImg3  %}
+            <div class="methods__item">
+                <a href="{{ settings.methodLink3 }}" class="methods__link" >
+                    <figure class="methods__image">
+                        <img class="product__image lazy-new methods__image" src="{{ asset(settings.methodImg3 ) }}"
+                        data-src="{{ asset(settings.methodImg3  ) }}" data-srcset="{{ asset(settings.methodImg3 ) }}"
+                        alt="{{ settings.methodName03 }}" title="{{ settings.methodName03 }}" layout="responsive" width="150"
+                        height="150">
+                    </figure>
+                    <span class="methods__name">
+                        {{ settings.methodName03 }}
+                    </span>
+                </a>
+            </div>
+            {% endif %}
+            {% if settings.methodImg4 %}
+            <div class="methods__item">
+                <a href="{{ settings.methodLink4 }}" class="methods__link" >
+                    <figure class="methods__image">
+                        <img class="product__image lazy-new methods__image" src="{{ asset(settings.methodImg4) }}"
+                        data-src="{{ asset(settings.methodImg4) }}" data-srcset="{{ asset(settings.methodImg4) }}"
+                        alt="{{ settings.methodName04 }}" title="{{ settings.methodName04 }}" layout="responsive" width="150"
+                        height="150">
+                    </figure>
+
+                    <span class="methods__name">
+                        {{ settings.methodName04 }}
+                    </span>
+                </a>
+            </div>
+            {% endif %}
+            {% if settings.methodImg5 %}
+            <div class="methods__item">
+                <a href="{{ settings.methodLink5 }}" class="methods__link" >
+                    <figure class="methods__image">
+                        <img class="product__image lazy-new methods__image" src="{{ asset(settings.methodImg5) }}"
+                        data-src="{{ asset(settings.methodImg5) }}" data-srcset="{{ asset(settings.methodImg5) }}"
+                        alt="{{ settings.methodName05 }}" title="{{ settings.methodName05 }}" layout="responsive" width="150"
+                        height="150">
+                    </figure>
+
+                    <span class="methods__name">
+                        {{ settings.methodName05 }}
+                    </span>
+                </a>
+            </div>
+            {% endif %}
+            {% if settings.methodImg6 %}
+            <div class="methods__item">
+                <a href="{{ settings.methodLink6 }}" class="methods__link" >
+                    <figure class="methods__image">
+                        <img class="product__image lazy-new methods__image" src="{{ asset(settings.methodImg6) }}"
+                        data-src="{{ asset(settings.methodImg6) }}" data-srcset="{{ asset(settings.methodImg6) }}"
+                        alt="{{ settings.methodName06 }}" title="{{ settings.methodName06 }}" layout="responsive" width="150"
+                        height="150">
+                    </figure>
+
+                    <span class="methods__name">
+                        {{ settings.methodName06 }}
+                    </span>
+                </a>
+            </div>
+            {% endif %}
+
+            {% if settings.methodImg7 %}
+            <div class="methods__item">
+                <a href="{{ settings.methodLink7 }}" class="methods__link" >
+                    <figure class="methods__image">
+                        <img class="product__image lazy-new methods__image" src="{{ asset(settings.methodImg7) }}"
+                        data-src="{{ asset(settings.methodImg7) }}" data-srcset="{{ asset(settings.methodImg7) }}"
+                        alt="{{ settings.methodName07 }}" title="{{ settings.methodName07 }}" layout="responsive" width="150"
+                        height="150">
+                    </figure>
+
+                    <span class="methods__name">
+                        {{ settings.methodName07 }}
+                    </span>
+                </a>
+            </div>
+            {% endif %}
+
+            {% if settings.methodImg8 %}
+            <div class="methods__item">
+                <a href="{{ settings.methodLink8 }}" class="methods__link" >
+                    <figure class="methods__image">
+                        <img class="product__image lazy-new methods__image" src="{{ asset(settings.methodImg8) }}"
+                        data-src="{{ asset(settings.methodImg8) }}" data-srcset="{{ asset(settings.methodImg8) }}"
+                        alt="{{ settings.methodName08 }}" title="{{ settings.methodName08 }}" layout="responsive" width="150"
+                        height="150">
+                    </figure>
+
+                    <span class="methods__name">
+                        {{ settings.methodName08 }}
+                    </span>
+                </a>
+            </div>
+            {% endif %}
+
+            {% if settings.methodImg9 %}
+            <div class="methods__item">
+                <a href="{{ settings.methodLink9 }}" class="methods__link" >
+                    <figure class="methods__image">
+                        <img class="product__image lazy-new methods__image" src="{{ asset(settings.methodImg9) }}"
+                        data-src="{{ asset(settings.methodImg9) }}" data-srcset="{{ asset(settings.methodImg9) }}"
+                        alt="{{ settings.methodName09 }}" title="{{ settings.methodName09 }}" layout="responsive" width="150"
+                        height="150">
+                    </figure>
+
+                    <span class="methods__name">
+                        {{ settings.methodName09 }}
+                    </span>
+                </a>
+            </div>
+            {% endif %}
+            
+        </div>
+    </div>
+</div>
+{% endif %}

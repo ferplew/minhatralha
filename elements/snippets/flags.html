@@ -1,0 +1,29 @@
+<div class="flags flags{{ class }}">
+    <ul class="flags__ul">
+
+        {% if product.featured %}
+            <li class="flags__item">
+                <span class="flags__title flags__featured">Destaque</span>
+            </li>
+        {% endif %}
+
+        {% if product.new %}
+            <li class="flags__item">
+                <span class="flags__title flags__new">Novidade</span>
+            </li>
+        {% endif %}
+
+        {% if product.free_shipping %}           
+            <li class="flags__item">
+                <span class="flags__title flags__free-shipping">Frete Gr&#225;tis</span>
+            </li>
+        {% endif %}
+
+        {% if product.additional_button and settings.labelExtra %}
+            <li class="flags__item">
+                <span class="flags__title flags__extra">{{ settings.labelExtra }}</span>
+            </li>
+        {% endif %}
+    </ul>
+
+</div>

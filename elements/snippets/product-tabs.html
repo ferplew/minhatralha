@@ -1,0 +1,56 @@
+<section id="ProdBlock" class="product-tabs product-tabs--abas">
+    <div id="ProdAbas" class="abasProduto">
+        <ul class="tabs__list">
+            {% for key, tab in productTabs %}
+                {% if tab.container_id %}
+                <li id="{{ tab.id }}" class="tabs__item {% if key=='description' %}aberta{% endif %} {% if key == 'comments'%}tabComments{% endif %}">
+                    <a href="#" class="product-tabs__title"  data-tab-container-id="{{ tab.container_id }}" data-tab-url="{{ tab.url }}">
+                        {{ tab.description }}
+                    </a>
+                </li>
+                {% endif %}
+            {% endfor %}
+        </ul>
+    </div>
+    
+    {# Payment Methods #}
+    {% if payments %}
+        <div aria-controls="tab-payments" class="product-tabs__tab">
+            <h3 class="product-tabs__title">{{ payments['description'] }}</h3>
+        </div>
+        <div aria-hidden="true" id="tab-payments" class="product-tabs__content">
+            <div class="more-payments-modal" id="{{ product.id }}">
+                <div class="more-payments-content"></div>
+            </div>
+        </div>
+    {% endif %}    
+
+
+    <div id="descricao" class="prodBox product__description">
+        <div class="product__board">{{ product.description ? product.description : product.description_small }}</div>
+    </div>
+
+    <div id="itensInclusos" class="prodBox product__included">
+        <div class="product__board">{{ product.included_items }}</div>
+    </div>
+
+    <div id="caracteristicas" class="prodBox product__attributes">
+        <div class='product__board'>
+            {% element 'product/properties' %}
+        </div>
+    </div>
+
+    <div id="garantia" class="prodBox product__warranty">
+        <div class='product__board'>
+            {{ product.warranty }}
+        </div>
+    </div>
+    
+    <div id="formasPagto" class="prodBox product__payments">
+        <div class="product__board"></div>
+    </div>
+
+
+    {{ productTabs.custom.content }}
+    {{ productTabs.downloads.content }}
+</section>

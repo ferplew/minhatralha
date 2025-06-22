@@ -1,0 +1,94 @@
+<div class="page-catalog__main">
+    <div class="page-catalog__container">
+        {% if pages.current in ['catalog','search'] %}
+        {% if banner.title %}
+        {% set type = banners.title.type %}
+        {% if type == 'javascript' %}
+        <div class="banner banner--page-category banner--javascript">
+            <div class="banner__list" data-carousel="true">
+                {% for slide in banners.title.slides %}
+                {% set link = slide.link %}
+                {% set image = slide.image %}
+                {% set target = slide.target %}
+                {% set label = slide.label %}
+
+                <div class="banner__item">
+                    <a class="banner__link" href="{{ link }}" alt="Banner" title="Banner" target="{{ target }}">
+                        <img class="banner__img" src="{{ image }}" alt="{{ label }}">
+                    </a>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+        {% if type == 'image' %}
+        <div class="banner banner--page-category">
+            {% set link = banners.title.link %}
+            {% set image = banners.title.src %}
+            {% set target = banners.title.target %}
+            {% set label = banners.title.label %}
+            <div class="banner__item">
+                <a class="banner__link" alt="Banner" title="Banner" href="{{ link }}" target="{{ target }}">
+                    <img class="banner__img" src="{{ image }}" alt="{{ label }}">
+                </a>
+            </div>
+        </div>
+        {% endif %}
+        {% endif %}
+        {% endif %}
+
+        <div class="page-catalog__container--top">
+        {% element 'snippets/breadcrumb' %}
+        {% if settings.compare %}
+        <a href="/loja/comparador.php?loja={{store.id}}&IdDep={{category.id}}" class="button-compare">{{
+            Translation("comparar_produto") }}</a>
+        {% endif %}
+        </div>
+
+        <div class="page-catalog__toolbar page-catalog__toolbar--top">
+            {% element 'snippets/toolbar' {
+            'brands': category.brands,
+            'position': 'top'
+            } %}
+        </div>
+
+        {% if products|length > 0 %}
+        {% element 'sidebar-left' %}
+        {% endif %}
+
+        {% if products|length > 0 %}
+        <div class="page-catalog__content">
+            <div class="page-catalog__list">
+                {% element 'showcase' {
+                "products": products,
+                "carousel": "false"
+                } %}
+            </div>
+
+            <div class="page-catalog__toolbar page-catalog__toolbar--bottom">
+                {% element 'snippets/toolbar' {
+                'brands': category.brands,
+                'position': 'bottom'
+                } %}
+            </div>
+        </div>
+        {% else %}
+
+        <div class="page-catalog__main page-catalog__main--empty">
+            <img src="{{ asset('img/page-catalog-empty.svg') }}" alt="Sem produtos" width="150" height="150">
+            <p>{{ Translation('nenhum_resultado') }}</p>
+        </div>
+
+        {% endif %}
+    </div>
+    
+    {% if category.small_description %}
+    <div class="page-catalog__description">
+        <div class="page-catalog__description--text" id="txtmin">
+            <span class="description__categoryname">{{ category.name }}</span>
+            {{ category.small_description }}
+        </div>
+    </div>
+    {% endif %}
+
+</div>

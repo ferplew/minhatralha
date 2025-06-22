@@ -1,0 +1,274 @@
+{% element 'snippets/breadcrumb' %}
+
+{% set hasVariation = false %}
+<section class="page-product__essential" itemscope itemtype="http://schema.org/Product">
+    <article style="display: none">
+        {% set dateFinal = product.deactivation_date | split('-')  %}
+        {% set dateModified = product.modified | split('-')  %}
+        {% set year = dateFinal[0] <= 0 ? dateModified[0] + 50 : product.deactivation_date %}
+        {% set month = dateFinal[1] <= 0 ? dateModified[1] + 01 : product.deactivation_date %}
+        {% set day = dateFinal[2] <= 0 ? dateModified[2] + 01 : product.deactivation_date %}
+        {% set dateDeactivation =  dateFinal[0] <= 0 ? year ~ "-" ~ month ~ "-" ~ day : product.deactivation_date %}
+
+        <span itemprop="brand">{{ product.brand }}</span>
+        <span itemprop="sku">{{ product.id }}</span>
+        <span
+            itemprop="description">{{ product.description ? product.description : product.description_small }}</span>
+        <span itemprop="gtin8">{{ product.id }}</span>
+
+        {% if product.ranking.rating >= 5 %}
+        <div itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating">
+            <span itemprop="ratingValue">{{product.ranking.rating}}</span>
+            <span itemprop="reviewCount">{{ product.ranking.count }}</span>
+        </div>
+        {% else %}
+        <div itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating">
+            <span itemprop="ratingValue">4</span>
+            <span itemprop="reviewCount">4</span>
+        </div>
+        {% endif %}
+        <ul itemprop="review" itemscope itemtype="http://schema.org/Review">
+            {% set author = comment.customer.name != "" ? comment.customer.name : "Anônimo" %}
+
+            {% if author == "Anônimo" %}
+            <span itemprop="author">{{ author }}</span>
+            {% endif %}
+
+            {% for comment in product.comments %}
+
+            {% set author = comment.customer.name != "" ? comment.customer.name : "Anônimo" %}
+
+            <span itemprop="name"> {{ comment.rating }} </span>
+            <span itemprop="author">{{ author }}</span>
+            <meta itemprop="datePublished" content="{{ comment.date }}">{{ comment.date }}
+            <div itemprop="reviewRating" itemscope itemtype="http://schema.org/Rating">
+                <meta itemprop="worstRating" content="1" />
+                <span itemprop="ratingValue">{{ comment.rating }}</span>
+                <span itemprop="bestRating">{{ comment.rating }}</span>
+            </div>
+            <span itemprop="description">{{ comment.comment }}</span>
+
+            {% endfor %}
+        </ul>
+
+
+        <a href="{{ product.link }}">
+            <img class="img-responsive lazy" data-original="{{ product.images[0].full }}"
+                src="{{ asset('img/loading.gif') }}" alt="{{ product.name }}" itemprop="image" layout="responsive">
+        </a>
+
+        <div class="preco-por" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+            <div style="display: none !important;">
+                <span itemprop="priceValidUntil"> {{ dateDeactivation }}</span>
+                <a itemprop="url" href="{{ product.link }}"> {{ product.link }} </a>
+
+                {% if product.available and product.stock > 0 %}
+                <link itemprop="availability" href="http://schema.org/InStock" />In stock
+                {% else %}
+                <meta itemprop="availability" content="http://schema.org/SoldOut">
+                {% endif %}
+            </div>
+            <strong>
+                <span itemprop="priceCurrency" content="BRL">R$ </span>
+                <span itemprop="price" content="{{ product.price_offer }}">{{ product.price_offer|currency }}</span>
+            </strong>
+        </div>
+
+    </article>
+
+    <div class="page-product__header">
+        <h1 class="page-product__name" itemprop="name">{{ product.name }}</h1>
+
+        <div class="page-product__short-review">
+            {% element 'snippets/rating-short' { 'product': product } %}
+        </div>
+
+        <div class="page-product__head">
+            {% if product.reference %}
+            <div class="page-product__reference">
+                C&oacute;d: {{ product.reference }}
+            </div>
+            {% endif %}
+            {% if product.brand %}
+            <div class="page-product__brand">
+                Marca: {{ product.brand }}
+            </div>
+            {% endif %}
+            {{ productHelper.details() }} 
+            {% if product.availability %}
+            <div class="page-product__availability">
+                Disponibilidade: <span>{{ product.availability }}</span>
+            </div>
+            {% endif %}
+            {% if settings.show_product_stock %}
+            <div class="page-product__stock">
+                Estoque: {{ product.stock }}
+            </div>
+            {% endif %}
+
+        </div>
+        {% for discount in product.ProgressiveDiscounts %}
+        {% if discount.tag %}
+        <div class="banner-progressive-discounts">
+            <p>{{discount.description}}</p>
+        </div>
+        {% endif %}
+        {% endfor %}
+    </div>
+
+
+
+    <div class="page-product__image">
+
+        {% if product.images %}
+        <div id="visualBlock" class="page-product__gallery {{ product.images|length  <= 1 and not product.video ? 'hide-carousel' }}">
+            {{ productHelper.gallery() }}
+            {% element 'snippets/flags' {product:product} %}
+        </div>
+        {% else %}
+        <div class="product-product__gallery page-product__gallery--no-image">
+            <img src="{{ asset('img/no-image.svg') }}" alt="Nenhuma imagem foi cadastrada">
+        </div>
+        {% endif %}
+        
+    </div>
+
+    <div class="page-product__details">
+
+        {{ productHelper.social() }}
+        {% set porcentagemDesconto = 100 - ( product.price_offer / product.price ) * 100 %}
+        {% if porcentagemDesconto < 100 %} <span class="flags__discount--page-product"> {{ porcentagemDesconto|number_format }}% OFF
+        </span>
+        {% endif %}
+        
+        <form id="form_comprar" method="post" data-app="product.buy-form" action="{{ links.cart_add ~ product.id }}">
+
+            <div data-module="pricing" data-snippet="snippets/pricing" data-product-id="{{ product.id }}">
+                <div class="pricing">
+                    Carregando...
+                </div>
+            </div>
+            
+            {% if product.available != 0 %}
+
+                {% if productHelper.variants() %}
+                <div class="page-product__variants">
+                    <div style="display: none;" >
+                        {{ productHelper.variants() }}
+                    </div>
+                    <p class="varTit"></p>
+                    <a href="#" class="select_variation--button">Selecione o modelo</a>
+                    
+                </div>
+                {% endif%}
+
+            {% endif %}
+
+            {{ product.additional_information }}
+
+            {{ productHelper.kit() }}
+
+            {% if not product.has_variation %}
+            <div class="page-product__actions">      
+                {{ productHelper.form() }}
+
+                {% if product.stock and not product.upon_request %}
+                {% if productHelper.wishlist() %}
+                <div class="product__wishlist">
+                    {{ productHelper.wishlist() }}                                                      
+                </div>
+                {% endif %}
+                {% endif %}
+            </div>
+            {% if not product.upon_request %}
+            {% if productHelper.shipping %}
+            {{ productHelper.shipping() }}
+            {% endif %}
+            {% endif %}
+            {% endif %}
+
+
+            {{ productHelper.gifts() }}
+                        
+        </form>
+
+    </div>
+</section>
+
+
+{% if product.has_variation %}
+{% set hasVariation = true %}
+<section class="product-variations" id="listaCompra" data-product="{{ product.id }}">
+    <script type="text/javascript">
+        var dataJson = [
+            {% for variantKey, variantValue in product.variants %}
+                {% for varKey, varValue in variantValue %}
+                    {% for var2Key, var2Value in varValue %}
+                        {% if(loop.index != 1) %}
+                            ,
+                        {% endif %}
+                        { "id":
+                            {{ var2Value.id }},
+                        "stock":
+                            {{var2Value.stock ? var2Value.stock : 0}}
+                        }
+                    {% endfor %}
+                {% endfor %}
+            {% endfor %}];
+            
+    </script>    
+    
+    <div class="product-variations__title">
+        <h6 class="product__title"></h6>
+    </div>
+
+    <div class="product-variations__showcase">
+        <ul class="product-variations__list"></ul>
+        <button class="product-variations__buy">
+            Comprar todos os produtos selecionados
+        </button>
+    </div>
+</section>
+{% endif %}
+
+
+
+
+{% element 'buy-together' %}
+
+{% element 'snippets/product-tabs' { 'product': product, 'productTabs': productTabs } %}
+
+<section class="page-product__comments">
+    <h2>Avalia&ccedil;&otilde;es</h2>
+    {% element 'product/comments' %}
+</section>
+
+{% if product.related_products %}
+<div id="prognoos_lsi"></div>
+<section class="products-related">
+    <h3 class="related-title">Produtos Relacionados</h3>
+    <div class="showcase__list">
+        {% for related in product.related_products %}
+        <div class="showcase__item">
+            {% element 'snippets/product' {product: related} %}
+        </div>
+        {% endfor %}
+    </div>
+</section>
+{% endif %}
+
+<div id="prognoos_ib"></div>
+
+<section class="products-visited">
+    <h4 class="products-visited__title">Produtos Visitados</h4>
+
+    <div class="products-visited__showcase">
+        {% element 'snippets/history' %}
+    </div>
+</section>
+
+<div id="loading-product-container"
+    style="position: fixed; top: 0px; left: 0px; width: 100%; height: 100%; background: rgba(255, 255, 255, 0.8) none repeat scroll 0% 0%; justify-content: center; align-items: center; display: none;">
+    <img src="{{ asset('img/loading.gif') }}"
+        width="60" height="60"></div>
+

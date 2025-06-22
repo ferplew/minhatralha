@@ -1,0 +1,16 @@
+{% if settings.showReview %}
+
+{% if settings.activeCarousel %}
+<section class="reviews" data-carousel="true">
+{% else %}
+<section class="reviews" data-carousel="false">
+{% endif %}
+    <div class="reviews__container">
+        <h2 class="reviews__title">            
+            O que falam sobre a {{ store.name }}.<br>
+            <strong>Depoimentos de clientes</strong>
+        </h2>
+        {% element 'CustomerReview.reviews' %}
+    </div>
+</section>
+{% endif %}

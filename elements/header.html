@@ -1,0 +1,44 @@
+<header id="header" class="header">
+    <div class="header__container">
+        <div class="header__menu">
+            <button aria-controls="navigation" type="button" aria-label="menu" class="button button__menu">
+                <svg id="menu" xmlns="http://www.w3.org/2000/svg" width="17.366" height="16" viewBox="0 0 17.366 16">
+                    <g id="Grupo_10" data-name="Grupo 10" transform="translate(0 -0.459)">
+                        <g id="Grupo_9" data-name="Grupo 9" transform="translate(0 0)">
+                        <path id="Caminho_16" data-name="Caminho 16" d="M16.642,17.067H.724c-.4,0-.724.448-.724,1s.324,1,.724,1H16.642c.4,0,.724-.448.724-1S17.042,17.067,16.642,17.067Z" transform="translate(0 -16.608)" />
+                        </g>
+                    </g>
+                    <g id="Grupo_12" data-name="Grupo 12" transform="translate(0 6.776)">
+                        <g id="Grupo_11" data-name="Grupo 11">
+                        <path id="Caminho_17" data-name="Caminho 17" d="M16.642,187.733H.724c-.4,0-.724.448-.724,1s.324,1,.724,1H16.642c.4,0,.724-.448.724-1S17.042,187.733,16.642,187.733Z" transform="translate(0 -187.509)" />
+                        </g>
+                    </g>
+                    <g id="Grupo_14" data-name="Grupo 14" transform="translate(0 14)">
+                        <g id="Grupo_13" data-name="Grupo 13">
+                        <path id="Caminho_18" data-name="Caminho 18" d="M16.642,358.4H.724c-.4,0-.724.448-.724,1s.324,1,.724,1H16.642c.4,0,.724-.448.724-1S17.042,358.4,16.642,358.4Z" transform="translate(0 -358.4)" />
+                        </g>
+                    </g>
+                </svg>
+            </button>
+        </div>
+        <div class="header__logo">
+            {% element 'snippets/logo' %}
+        </div>
+        <div class="header__search">
+            {% element 'snippets/search' %}
+        </div>
+        
+        <div class="header__customer">
+            {% element 'snippets/customer' { modifier: 'header' } %}
+        </div>
+
+        <div class="header__attendance">
+            {% element 'snippets/attendance' %}
+        </div>
+
+        <div class="header__minicart">
+            {% element 'snippets/cp-minicart' %}
+        </div>
+    </div>
+    {% element 'navigation' %}
+</header>

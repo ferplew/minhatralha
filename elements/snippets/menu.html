@@ -1,0 +1,186 @@
+{# Configuração do limite de Nivel #}
+
+{% if not settings.nivelLimit %}
+    {% set nivelLimit = 2 %}
+{% else %}
+    {% set nivelLimit = settings.nivelLimit %}
+{% endif %}
+
+{# Configuração de primeiro nivel #}
+
+{% if not nivel %}
+    {% set nivel = 1 %}
+{% endif %}
+
+{% if not menu %}
+    {% set menu = categories %}
+{% endif %}
+
+{% set class = '' %}
+{% if modifier %}
+    {% set class = ' menu--' ~ modifier %}
+{% endif %}
+
+{% set notCategories = settings.notCategories | split(',') %}
+
+<div class="menu menu--nv1{{ class }}">
+    <ul class="menu__ul menu__ul--nv1">
+        {% if settings.showAll and not utils.is_mobile %}
+        <li class="menu__item menu__item--nv1 menu--all{{ hasChild }}">
+            
+            <a class="menu__link menu__link--nv1" data-tray-tst="categoria_lvl_1">
+                <span class="menu__label">
+                    <svg id="_1828859" data-name="1828859" xmlns="http://www.w3.org/2000/svg" width="20" height="14.444"
+                        viewBox="0 0 20 14.444">
+                        <path id="Caminho_113" data-name="Caminho 113"
+                            d="M19.167,124.335H.833a.833.833,0,0,1,0-1.667H19.167a.833.833,0,0,1,0,1.667Zm0,0"
+                            transform="translate(0 -116.279)" />
+                        <path id="Caminho_114" data-name="Caminho 114"
+                            d="M19.167,1.667H.833A.833.833,0,1,1,.833,0H19.167a.833.833,0,1,1,0,1.667Zm0,0"
+                            transform="translate(0 0)" />
+                        <path id="Caminho_115" data-name="Caminho 115"
+                            d="M19.167,247H.833a.833.833,0,0,1,0-1.667H19.167a.833.833,0,1,1,0,1.667Zm0,0"
+                            transform="translate(0 -232.554)" />
+                    </svg>
+                    <div class="menu--all__title">TODAS AS CATEGORIAS</div>
+                </span>
+            </a>
+            <div class="menu menu--nv2{{ class }} menu--sub">
+                <ul class="menu__ul menu__ul--nv2">
+                    {% for category in menu %}
+                    {# Exlui no Todas + Categorias #}
+                    {% if loop.index > 6 %}
+
+                        {% if not (category.id in notCategories) %}
+                        {% set hasChild = '' %}
+                        {% if category.children and nivel < nivelLimit %}
+                            {% set hasChild = ' menu__item--has-child' %}
+                        {% endif %}
+                        <li class="menu__item menu__item--nv2{{ hasChild }}">
+                            <a href="{{ category.link }}" class="menu__link menu__link--nv2" data-tray-tst="categoria_lvl_2">
+
+                                <span class="menu__label">{{ category.name }}</span>
+                            </a>
+                            <div class="menu menu--nv3{{ class }}  menu--sub">
+                            <ul class="menu__ul menu__ul--nv3">
+                                {% for category2 in category.children %}
+                                {% if loop.index <= 4 %}
+                                    {% set hasChild = '' %}
+                                    {% if not (category2.id in notCategories) %}
+                                    {% if category2.children and nivel < nivelLimit %}
+                                        {% set hasChild = ' menu__item--has-child' %}
+                                    {% endif %}
+                                    <li class="menu__item menu__item--nv3{{ hasChild }}">
+                                        <a href="{{ category2.link }}" class="menu__link menu__link--nv3" data-tray-tst="categoria_lvl_3" >
+                                            <span class="menu__label">{{ category2.name }}</span>
+                                        </a>
+                                    </li>
+                                    {% endif %}
+                                {% endif %}
+                                {% if loop.index == 5 %}
+                                    <li class="menu__item menu__item--ver{{ hasChild }}">
+                                        <a href="{{ category.link }}" class="menu__link menu__link--ver" data-tray-tst="categoria_lvl_3">
+                                            Ver Mais
+                                        </a>
+                                    </li>
+                                {% endif %}
+                                {% endfor %}
+                            </ul>
+                            </div>
+                        </li>
+                        {% endif %}
+                    {% endif %}
+                    {% endfor %}
+                </ul>
+            </div>
+        </li>
+        {% endif %}
+
+        {% for category in menu %}
+            {% set hasChild = '' %}
+            {# Excluir as nivel 1 #}
+            {% if not (category.id in notCategories) %}
+            {% if category.children and nivel < nivelLimit %}
+                {% set hasChild = ' menu__item--has-child' %}
+            {% endif %}
+
+            {% if loop.index <= 6 or utils.is_mobile %}
+                <li class="menu__item menu__item--nv1{{ hasChild }}">
+                    <a href="{{ category.link }}" class="menu__link menu__link--nv1" data-tray-tst="categoria_lvl_1">
+                        {% if category.images %}
+                            <div class="menu__imagem-topo">
+                                <img src="{{ category.images[0] }}" alt="{{ category.name }}" width="100%" height="100%"/>
+                            </div>
+                        {% endif %}
+                        
+                        <span class="menu__label">{{ category.name }}</span>
+                    </a>
+                    <div class="menu menu--nv2{{ class }} menu--sub">
+                        <ul class="menu__ul menu__ul--nv2">
+                        {% for category2 in category.children %}
+                            {% if loop.index <= 999 %}
+                            {% set hasChild = '' %}
+                            {% if not (category2.id in notCategories) %}
+
+                                {% if category.children and nivel < nivelLimit %}
+                                {% set hasChild = ' menu__item--has-child' %}
+                                {% endif %}
+                                <li class="menu__item menu__item--nv2{{ hasChild }}">
+                                    <a href="{{ category2.link }}" class="menu__link menu__link--nv2" data-tray-tst="categoria_lvl_2">
+                                        <span class="menu__label">{{ category2.name }}</span>
+                                    </a>
+                                    <div class="menu menu--nv3{{ class }}  menu--sub">
+                                        <ul class="menu__ul menu__ul--nv3">
+                                        {% for category3 in category2.children %}
+                                            {% if not (category3.id in notCategories) %}
+                                            {% set hasChild = '' %}
+                                            {% if loop.index <= 999 %}
+                                                {% if category3.children and nivel < nivelLimit %}
+                                                {% set hasChild = ' menu__item--has-child' %}
+                                                {% endif %}
+                                                <li class="menu__item menu__item--nv3{{ hasChild }}">
+                                                    <a href="{{ category3.link }}" class="menu__link menu__link--nv3" data-tray-tst="categoria_lvl_3" > 
+                                                        <span class="menu__label">{{ category3.name }}</span> 
+                                                    </a>
+                                                </li>
+                                            {% endif %}
+                                            {% endif %}
+                                            {% if loop.index == 5 %}
+                                            <li class="menu__item menu__item--ver{{ hasChild }}">
+                                                <a href="{{ category2.link }}" class="menu__link menu__link--ver" data-tray-tst="categoria_lvl_3">Ver Mais</a>
+                                            </li>
+                                            {% endif %}
+                                        {% endfor %}
+                                        </ul>
+                                    </div>
+                                </li>
+                            {% endif %}
+                            {% endif %}
+                        {% endfor %}
+                        </ul>
+                        {% set break = false %}
+                        {% for category2 in category.children if not break%}
+                            <div class="menu__dropdown--right">
+                                <div class="category__product showcase" data-target="{{ category.id }}">
+                                    {% set products = Products({
+                                            'categories': category.id,
+                                            'filter': {'id' : 'rand'},
+                                            'limit': 1,
+                                            }) %}
+
+                                    {% element 'snippets/product_category' { "products": products } %}
+
+                                </div>
+                            </div>
+                            {% set break = true %}
+                        {% endfor %}
+                        <a href="{{ category.link }}">
+                            <div class="menu__bottom">Ver todas as categorias</div>
+                        </a>
+                    </div>
+                </li>
+            {% endif %}
+            {% endif %}
+        {% endfor %}
+    </ul>
+</div>

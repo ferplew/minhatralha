@@ -1,0 +1,28 @@
+{% if settings.showPopupNews %}
+<div class="popupNews">
+    <div class="popupNews__wrapper">
+        <button class="popupNews__close">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20">
+                <g id="_1828747" data-name="1828747" transform="translate(-0.039)">
+                    <path id="Caminho_553" data-name="Caminho 553"
+                        d="M1.068,20A1.029,1.029,0,0,1,.34,18.243L18.283.3a1.029,1.029,0,1,1,1.455,1.455L1.8,19.7A1.032,1.032,0,0,1,1.068,20Zm0,0" />
+                    <path id="Caminho_554" data-name="Caminho 554"
+                        d="M19.011,20a1.021,1.021,0,0,1-.727-.3L.34,1.757A1.029,1.029,0,0,1,1.8.3L19.738,18.243A1.029,1.029,0,0,1,19.011,20Zm0,0" />
+                </g>
+            </svg>
+        </button>
+        {% if settings.popupNewsImage %}
+        <div class="popupNews__image">
+            <figure>
+                <img src="{{ asset(settings.popupNewsImage) }}" alt="Imagem destaque Popup Newsletter" />
+            </figure>
+        </div>
+        {% endif %}
+        <div class="popupNews__content">
+            <!-- Newsletter -->
+            {% element 'snippets/newsletter' %}
+        </div>
+    </div>
+    <div class="popupNews__mask"></div>
+</div>
+{% endif %}

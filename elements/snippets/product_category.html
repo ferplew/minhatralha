@@ -1,0 +1,5 @@
+{% if products|length > 0 %}
+    {% for product in products %}
+        {% element 'snippets/product_special' {"product": product} %}
+    {% endfor %}
+{% endif %}

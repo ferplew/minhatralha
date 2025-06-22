@@ -1,0 +1,143 @@
+<article class="product">
+    <article style="display: none">
+        {% set dateFinal = product.deactivation_date | split('-')  %}
+        {% set dateModified = product.modified | split('-')  %}
+        {% set year = dateFinal[0] <= 0 ? dateModified[0] + 50 : product.deactivation_date %}
+        {% set month = dateFinal[1] <= 0 ? dateModified[1] + 01 : product.deactivation_date %}
+        {% set day = dateFinal[2] <= 0 ? dateModified[2] + 01 : product.deactivation_date %}
+        {% set dateDeactivation =  dateFinal[0] <= 0 ? year ~ "-" ~ month ~ "-" ~ day : product.deactivation_date %}
+
+        <span itemprop="brand">{{ product.brand }}</span>
+        <span itemprop="sku">{{ product.id }}</span>
+        <span
+            itemprop="description">{{ product.description ? product.description : product.description_small }}</span>
+        <span itemprop="gtin8">{{ product.id }}</span>
+
+        {% if product.ranking.rating >= 5 %}
+        <div itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating">
+            <span itemprop="ratingValue">{{product.ranking.rating}}</span>
+            <span itemprop="reviewCount">{{ product.ranking.count }}</span>
+        </div>
+        {% else %}
+        <div itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating">
+            <span itemprop="ratingValue">4</span>
+            <span itemprop="reviewCount">4</span>
+        </div>
+        {% endif %}
+        <ul itemprop="review" itemscope itemtype="http://schema.org/Review">
+            {% set author = comment.customer.name != "" ? comment.customer.name : "Anônimo" %}
+
+            {% if author == "Anônimo" %}
+            <span itemprop="author">{{ author }}</span>
+            {% endif %}
+
+            {% for comment in product.comments %}
+
+            {% set author = comment.customer.name != "" ? comment.customer.name : "Anônimo" %}
+
+            <span itemprop="name"> {{ comment.rating }} </span>
+            <span itemprop="author">{{ author }}</span>
+            <meta itemprop="datePublished" content="{{ comment.date }}">{{ comment.date }}
+            <div itemprop="reviewRating" itemscope itemtype="http://schema.org/Rating">
+                <meta itemprop="worstRating" content="1" />
+                <span itemprop="ratingValue">{{ comment.rating }}</span>
+                <span itemprop="bestRating">{{ comment.rating }}</span>
+            </div>
+            <span itemprop="description">{{ comment.comment }}</span>
+
+            {% endfor %}
+        </ul>
+
+
+        <a href="{{ product.link }}">
+            <img class="img-responsive lazy" data-original="{{ product.images[0].full }}"
+                src="{{ asset('img/loading.gif') }}" alt="{{ product.name }}" itemprop="image" layout="responsive">
+        </a>
+
+        <div class="preco-por" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+            <div style="display: none !important;">
+                <span itemprop="priceValidUntil"> {{ dateDeactivation }}</span>
+                <a itemprop="url" href="{{ product.link }}"> {{ product.link }} </a>
+
+                {% if product.available and product.stock > 0 %}
+                <link itemprop="availability" href="http://schema.org/InStock" />In stock
+                {% else %}
+                <meta itemprop="availability" content="http://schema.org/SoldOut">
+                {% endif %}
+            </div>
+            <strong>
+                <span itemprop="priceCurrency" content="BRL">R$ </span>
+                <span itemprop="price" content="{{ product.price_offer }}">{{ product.price_offer|currency }}</span>
+            </strong>
+        </div>
+
+    </article>
+
+    <div class="product__header">
+        <figure class="product__figure">
+        {% if product.images %}
+            <a class="product__link" href="{{ settings.buy_to_cart ? links.cart_add ~ product.id : product.link }}" data-tray-tst="vitrine_produto_link_imagem">
+            
+                <img class="product__image" 
+                src="{{ product.images[0].full }}" 
+                alt="{{ product.name }}"
+                title="{{ product.name }}"
+                width="180"
+                height="180"
+                layout="responsive">
+
+            </a>
+        {% else %}
+            <a class="product__link" href="{{ settings.buy_to_cart ? links.cart_add ~ product.id : product.link }}" data-tray-tst="vitrine_produto_link_imagem">
+                <img class="product__image lazy-new" 
+                src="{{ product.images[0].full }}" 
+                alt="{{ product.name }}"
+                title="{{ product.name }}"
+                width="180"
+                height="180"
+                layout="responsive">
+            </a>
+        {% endif %}
+        </figure>
+        
+        {% element 'snippets/flags' {product:product} %}          
+    </div>
+
+    <div class="product__main">
+        <h1 class="product__name"><a class="product__link" href="{{ settings.buy_to_cart ? links.cart_add ~ product.id : product.link }}" data-tray-tst="vitrine_produto_link_imagem">{{ product.name }}</a></h1>
+        
+        {% if settings.showRating %}
+        {% element 'snippets/rating-short' {product:product} %}
+        {% endif %}
+
+        <div class="pricing" data-module="pricing" data-snippet="snippets/product-payment" data-product-id="{{ product.id }}">
+            Carregando...
+        </div>
+    </div>
+    
+    <div class="product__actions">
+        
+        {% if product.stock > 0 or settings.without_stock_sale %} 
+        
+            {% if product.upon_request %}
+                <div class="product__on-request">Produto Sob Consulta</div>
+            {% else %}
+                {% if product.has_variation %}
+                    <a class="product__button" href="{{ settings.buy_to_cart ? links.cart_add ~ product.id : product.link }}">
+                        Ver detalhes
+                    </a>
+                {% else %}
+                    <button type="button" class="product__button open--cart" data-cart="buy" data-id="{{ product.id }}">
+                        Adicionar ao carrinho
+                    </button>
+                {% endif %}
+            {% endif %}
+        {% else %}
+            <span class="product__unavailable">
+                Indispon&iacute;vel
+            </span>
+        {% endif %}
+
+    </div>
+</article>
+

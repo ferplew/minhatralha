@@ -1,0 +1,23 @@
+<div class="breadcrumb">
+    <div class="breadcrumb__container">
+        <span class="breadcrumb__item">
+            <a class="breadcrumb__label" href="/">Home</a>
+        </span>
+        <span class="breadcrumb__sep">|</span>
+        {% if breadcrumb %}
+        {% for item in breadcrumb %}
+        <span class="breadcrumb__item">
+            <a class="breadcrumb__label" href="{{ item.link}}" title="{{ item.name }}">{{ item.name }}</a>
+        </span>
+        <span class="breadcrumb__sep">|</span>
+        {% endfor %}
+        {% endif %}
+
+        {% if pages.current == 'catalog' %}
+        <span class="breadcrumb__item"><span class="breadcrumb__label category">{{ category.name }}</span></span><span
+            class="breadcrumb__sep">></span>
+        {% elseif pages.current == 'search' %}
+        <span class="breadcrumb__item"><span class="breadcrumb__label search">Busca: {{ search.word}}</span></span><span class="breadcrumb__sep">|</span>
+        {% endif %}
+    </div>
+</div>

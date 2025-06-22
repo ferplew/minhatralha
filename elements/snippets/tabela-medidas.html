@@ -1,0 +1,169 @@
+{% set categoriaTamanho = settings.tabelaMedidas__categoria|split(',') %}
+
+{% if settings.TabelaMedidasAtivo %}
+
+<div class="tabela-medidas">
+    <div class="tabela-medidas__fixed ">
+        <div class="tabela-medidas__content" style="margin-bottom: 10px;">
+            <div class="tabela__fixed--title">
+                <h3>Tabela de Medidas</h3>
+                <p>Compare as medidas do seu corpo com esta tabela. Medidas em centímetros.</p>
+            </div>
+            <span class="tabela-medidas__close">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20.001" viewBox="0 0 20 20.001">
+                    <g id="_1828747" data-name="1828747" transform="translate(-0.039)">
+                      <path id="Caminho_553" data-name="Caminho 553" d="M1.068,20A1.029,1.029,0,0,1,.34,18.243L18.283.3a1.029,1.029,0,1,1,1.455,1.455L1.8,19.7A1.032,1.032,0,0,1,1.068,20Zm0,0" fill="#2c2e2f"/>
+                      <path id="Caminho_554" data-name="Caminho 554" d="M19.011,20a1.021,1.021,0,0,1-.727-.3L.34,1.757A1.029,1.029,0,0,1,1.8.3L19.738,18.243A1.029,1.029,0,0,1,19.011,20Zm0,0" fill="#2c2e2f"/>
+                    </g>
+                </svg>
+            </span>
+
+            <div>
+                <table>
+                    <tr class="title-table-medidas">
+                        <th>Tamanho</th>
+                        {% if settings.tabelaMedidas__tamanho1 %}<th>{{ settings.tabelaMedidas__tamanho1 }}{% endif %}
+                        </th>
+                        {% if settings.tabelaMedidas__tamanho2 %}<th>{{ settings.tabelaMedidas__tamanho2 }}{% endif %}
+                        </th>
+                        {% if settings.tabelaMedidas__tamanho3 %}<th>{{ settings.tabelaMedidas__tamanho3 }}{% endif %}
+                        </th>
+                        {% if settings.tabelaMedidas__tamanho4 %}<th>{{ settings.tabelaMedidas__tamanho4 }}{% endif %}
+                        </th>
+                        {% if settings.tabelaMedidas__tamanho5 %}<th>{{ settings.tabelaMedidas__tamanho5 }}{% endif %}
+                        </th>
+                        {% if settings.tabelaMedidas__tamanho6 %}<th>{{ settings.tabelaMedidas__tamanho6 }}{% endif %}
+                        </th>
+                        {% if settings.tabelaMedidas__tamanho7 %}<th>{{ settings.tabelaMedidas__tamanho7 }}{% endif %}
+                        </th>
+                        {% if settings.tabelaMedidas__tamanho8 %}<th>{{ settings.tabelaMedidas__tamanho8 }}{% endif %}
+                        </th>
+                        {% if settings.tabelaMedidas__tamanho9 %}<th>{{ settings.tabelaMedidas__tamanho9 }}{% endif %}
+                        </th>
+                    </tr>
+                    <tr>
+                        {% if settings.tabelaMedidas__local1 %}<td>{{ settings.tabelaMedidas__local1 }}</td>{% endif %}
+                        {% if settings.tabelaMedidas__l2_c2 %}<td>{{ settings.tabelaMedidas__l2_c2 }}</td>{% endif %}
+                        {% if settings.tabelaMedidas__l2_c3 %}<td>{{ settings.tabelaMedidas__l2_c3 }}</td>{% endif %}
+                        {% if settings.tabelaMedidas__l2_c4 %}<td>{{ settings.tabelaMedidas__l2_c4 }}</td>{% endif %}
+                        {% if settings.tabelaMedidas__l2_c5 %}<td>{{ settings.tabelaMedidas__l2_c5 }}</td>{% endif %}
+                        {% if settings.tabelaMedidas__l2_c6 %}<td>{{ settings.tabelaMedidas__l2_c6 }}</td>{% endif %}
+                        {% if settings.tabelaMedidas__l2_c7 %}<td>{{ settings.tabelaMedidas__l2_c7 }}</td>{% endif %}
+                        {% if settings.tabelaMedidas__l2_c8 %}<td>{{ settings.tabelaMedidas__l2_c8 }}</td>{% endif %}
+                        {% if settings.tabelaMedidas__l2_c9 %}<td>{{ settings.tabelaMedidas__l2_c9 }}</td>{% endif %}
+                        {% if settings.tabelaMedidas__l2_c10 %}<td>{{ settings.tabelaMedidas__l2_c10 }}</td>{% endif %}
+                    </tr>
+                    <tr>
+                        {% if settings.tabelaMedidas__local2 %}<td>{{ settings.tabelaMedidas__local2 }}</td>{% endif %}
+                        {% if settings.tabelaMedidas__l3_c2 %}<td>{{ settings.tabelaMedidas__l3_c2 }}</td>{% endif %}
+                        {% if settings.tabelaMedidas__l3_c3 %}<td>{{ settings.tabelaMedidas__l3_c3 }}</td>{% endif %}
+                        {% if settings.tabelaMedidas__l3_c4 %}<td>{{ settings.tabelaMedidas__l3_c4 }}</td>{% endif %}
+                        {% if settings.tabelaMedidas__l3_c5 %}<td>{{ settings.tabelaMedidas__l3_c5 }}</td>{% endif %}
+                        {% if settings.tabelaMedidas__l3_c6 %}<td>{{ settings.tabelaMedidas__l3_c6 }}</td>{% endif %}
+                        {% if settings.tabelaMedidas__l3_c7 %}<td>{{ settings.tabelaMedidas__l3_c7 }}</td>{% endif %}
+                        {% if settings.tabelaMedidas__l3_c8 %}<td>{{ settings.tabelaMedidas__l3_c8 }}</td>{% endif %}
+                        {% if settings.tabelaMedidas__l3_c9 %}<td>{{ settings.tabelaMedidas__l3_c9 }}</td>{% endif %}
+                        {% if settings.tabelaMedidas__l3_c10 %}<td>{{ settings.tabelaMedidas__l3_c10 }}</td>{% endif %}
+                    </tr>
+                    <tr>
+                        {% if settings.tabelaMedidas__local3 %}<td>{{ settings.tabelaMedidas__local3 }}</td>{% endif %}
+                        {% if settings.tabelaMedidas__l4_c2 %}<td>{{ settings.tabelaMedidas__l4_c2 }}</td>{% endif %}
+                        {% if settings.tabelaMedidas__l4_c3 %}<td>{{ settings.tabelaMedidas__l4_c3 }}</td>{% endif %}
+                        {% if settings.tabelaMedidas__l4_c4 %}<td>{{ settings.tabelaMedidas__l4_c4 }}</td>{% endif %}
+                        {% if settings.tabelaMedidas__l4_c5 %}<td>{{ settings.tabelaMedidas__l4_c5 }}</td>{% endif %}
+                        {% if settings.tabelaMedidas__l4_c6 %}<td>{{ settings.tabelaMedidas__l4_c6 }}</td>{% endif %}
+                        {% if settings.tabelaMedidas__l4_c7 %}<td>{{ settings.tabelaMedidas__l4_c7 }}</td>{% endif %}
+                        {% if settings.tabelaMedidas__l4_c8 %}<td>{{ settings.tabelaMedidas__l4_c8 }}</td>{% endif %}
+                        {% if settings.tabelaMedidas__l4_c9 %}<td>{{ settings.tabelaMedidas__l4_c9 }}</td>{% endif %}
+                        {% if settings.tabelaMedidas__l4_c10 %}<td>{{ settings.tabelaMedidas__l4_c10 }}</td>{% endif %}
+                    </tr>
+                    <tr>
+                        {% if settings.tabelaMedidas__local4 %}<td>{{ settings.tabelaMedidas__local4 }}</td>{% endif %}
+                        {% if settings.tabelaMedidas__l5_c2 %}<td>{{ settings.tabelaMedidas__l5_c2 }}</td>{% endif %}
+                        {% if settings.tabelaMedidas__l5_c3 %}<td>{{ settings.tabelaMedidas__l5_c3 }}</td>{% endif %}
+                        {% if settings.tabelaMedidas__l5_c4 %}<td>{{ settings.tabelaMedidas__l5_c4 }}</td>{% endif %}
+                        {% if settings.tabelaMedidas__l5_c5 %}<td>{{ settings.tabelaMedidas__l5_c5 }}</td>{% endif %}
+                        {% if settings.tabelaMedidas__l5_c6 %}<td>{{ settings.tabelaMedidas__l5_c6 }}</td>{% endif %}
+                        {% if settings.tabelaMedidas__l5_c7 %}<td>{{ settings.tabelaMedidas__l5_c7 }}</td>{% endif %}
+                        {% if settings.tabelaMedidas__l5_c8 %}<td>{{ settings.tabelaMedidas__l5_c8 }}</td>{% endif %}
+                        {% if settings.tabelaMedidas__l5_c9 %}<td>{{ settings.tabelaMedidas__l5_c9 }}</td>{% endif %}
+                        {% if settings.tabelaMedidas__l5_c10 %}<td>{{ settings.tabelaMedidas__l5_c10 }}</td>{% endif %}
+                    </tr>
+                    <tr>
+                        {% if settings.tabelaMedidas__local5 %}<td>{{ settings.tabelaMedidas__local5 }}</td>{% endif %}
+                        {% if settings.tabelaMedidas__l6_c2 %}<td>{{ settings.tabelaMedidas__l6_c2 }}</td>{% endif %}
+                        {% if settings.tabelaMedidas__l6_c3 %}<td>{{ settings.tabelaMedidas__l6_c3 }}</td>{% endif %}
+                        {% if settings.tabelaMedidas__l6_c4 %}<td>{{ settings.tabelaMedidas__l6_c4 }}</td>{% endif %}
+                        {% if settings.tabelaMedidas__l6_c5 %}<td>{{ settings.tabelaMedidas__l6_c5 }}</td>{% endif %}
+                        {% if settings.tabelaMedidas__l6_c6 %}<td>{{ settings.tabelaMedidas__l6_c6 }}</td>{% endif %}
+                        {% if settings.tabelaMedidas__l6_c7 %}<td>{{ settings.tabelaMedidas__l6_c7 }}</td>{% endif %}
+                        {% if settings.tabelaMedidas__l6_c8 %}<td>{{ settings.tabelaMedidas__l6_c8 }}</td>{% endif %}
+                        {% if settings.tabelaMedidas__l6_c9 %}<td>{{ settings.tabelaMedidas__l6_c9 }}</td>{% endif %}
+                        {% if settings.tabelaMedidas__l6_c10 %}<td>{{ settings.tabelaMedidas__l6_c10 }}</td>{% endif %}
+                    </tr>
+                    <tr>
+                        {% if settings.tabelaMedidas__local6 %}<td>{{ settings.tabelaMedidas__local6 }}</td>{% endif %}
+                        {% if settings.tabelaMedidas__l7_c2 %}<td>{{ settings.tabelaMedidas__l7_c2 }}</td>{% endif %}
+                        {% if settings.tabelaMedidas__l7_c3 %}<td>{{ settings.tabelaMedidas__l7_c3 }}</td>{% endif %}
+                        {% if settings.tabelaMedidas__l7_c4 %}<td>{{ settings.tabelaMedidas__l7_c4 }}</td>{% endif %}
+                        {% if settings.tabelaMedidas__l7_c5 %}<td>{{ settings.tabelaMedidas__l7_c5 }}</td>{% endif %}
+                        {% if settings.tabelaMedidas__l7_c6 %}<td>{{ settings.tabelaMedidas__l7_c6 }}</td>{% endif %}
+                        {% if settings.tabelaMedidas__l7_c7 %}<td>{{ settings.tabelaMedidas__l7_c7 }}</td>{% endif %}
+                        {% if settings.tabelaMedidas__l7_c8 %}<td>{{ settings.tabelaMedidas__l7_c8 }}</td>{% endif %}
+                        {% if settings.tabelaMedidas__l7_c9 %}<td>{{ settings.tabelaMedidas__l7_c9 }}</td>{% endif %}
+                        {% if settings.tabelaMedidas__l7_c10 %}<td>{{ settings.tabelaMedidas__l7_c10 }}</td>{% endif %}
+                    </tr>
+                    <tr>
+                        {% if settings.tabelaMedidas__local7 %}<td>{{ settings.tabelaMedidas__local7 }}</td>{% endif %}
+                        {% if settings.tabelaMedidas__l8_c2 %}<td>{{ settings.tabelaMedidas__l8_c2 }}</td>{% endif %}
+                        {% if settings.tabelaMedidas__l8_c3 %}<td>{{ settings.tabelaMedidas__l8_c3 }}</td>{% endif %}
+                        {% if settings.tabelaMedidas__l8_c4 %}<td>{{ settings.tabelaMedidas__l8_c4 }}</td>{% endif %}
+                        {% if settings.tabelaMedidas__l8_c5 %}<td>{{ settings.tabelaMedidas__l8_c5 }}</td>{% endif %}
+                        {% if settings.tabelaMedidas__l8_c6 %}<td>{{ settings.tabelaMedidas__l8_c6 }}</td>{% endif %}
+                        {% if settings.tabelaMedidas__l8_c7 %}<td>{{ settings.tabelaMedidas__l8_c7 }}</td>{% endif %}
+                        {% if settings.tabelaMedidas__l8_c8 %}<td>{{ settings.tabelaMedidas__l8_c8 }}</td>{% endif %}
+                        {% if settings.tabelaMedidas__l8_c9 %}<td>{{ settings.tabelaMedidas__l8_c9 }}</td>{% endif %}
+                        {% if settings.tabelaMedidas__l8_c10 %}<td>{{ settings.tabelaMedidas__l8_c10 }}</td>{% endif %}
+                    </tr>
+                    <tr>
+                        {% if settings.tabelaMedidas__local8 %}<td>{{ settings.tabelaMedidas__local8 }}</td>{% endif %}
+                        {% if settings.tabelaMedidas__l9_c2 %}<td>{{ settings.tabelaMedidas__l9_c2 }}</td>{% endif %}
+                        {% if settings.tabelaMedidas__l9_c3 %}<td>{{ settings.tabelaMedidas__l9_c3 }}</td>{% endif %}
+                        {% if settings.tabelaMedidas__l9_c4 %}<td>{{ settings.tabelaMedidas__l9_c4 }}</td>{% endif %}
+                        {% if settings.tabelaMedidas__l9_c5 %}<td>{{ settings.tabelaMedidas__l9_c5 }}</td>{% endif %}
+                        {% if settings.tabelaMedidas__l9_c6 %}<td>{{ settings.tabelaMedidas__l9_c6 }}</td>{% endif %}
+                        {% if settings.tabelaMedidas__l9_c6 %}<td>{{ settings.tabelaMedidas__l9_c6 }}</td>{% endif %}
+                        {% if settings.tabelaMedidas__l9_c6 %}<td>{{ settings.tabelaMedidas__l9_c6 }}</td>{% endif %}
+                        {% if settings.tabelaMedidas__l9_c6 %}<td>{{ settings.tabelaMedidas__l9_c6 }}</td>{% endif %}
+                        {% if settings.tabelaMedidas__l9_c6 %}<td>{{ settings.tabelaMedidas__l9_c6 }}</td>{% endif %}
+                    </tr>
+                    <tr>
+                        {% if settings.tabelaMedidas__local9 %}<td>{{ settings.tabelaMedidas__local9 }}</td>{% endif %}
+                        {% if settings.tabelaMedidas__l10_c2 %}<td>{{ settings.tabelaMedidas__l10_c2 }}</td>{% endif %}
+                        {% if settings.tabelaMedidas__l10_c3 %}<td>{{ settings.tabelaMedidas__l10_c3 }}</td>{% endif %}
+                        {% if settings.tabelaMedidas__l10_c4 %}<td>{{ settings.tabelaMedidas__l10_c4 }}</td>{% endif %}
+                        {% if settings.tabelaMedidas__l10_c5 %}<td>{{ settings.tabelaMedidas__l10_c5 }}</td>{% endif %}
+                        {% if settings.tabelaMedidas__l10_c6 %}<td>{{ settings.tabelaMedidas__l10_c6 }}</td>{% endif %}
+                        {% if settings.tabelaMedidas__l10_c6 %}<td>{{ settings.tabelaMedidas__l10_c6 }}</td>{% endif %}
+                        {% if settings.tabelaMedidas__l10_c6 %}<td>{{ settings.tabelaMedidas__l10_c6 }}</td>{% endif %}
+                        {% if settings.tabelaMedidas__l10_c6 %}<td>{{ settings.tabelaMedidas__l10_c6 }}</td>{% endif %}
+                        {% if settings.tabelaMedidas__l10_c6 %}<td>{{ settings.tabelaMedidas__l10_c6 }}</td>{% endif %}
+                    </tr>
+                    <tr>
+                        {% if settings.tabelaMedidas__local10 %}<td>{{ settings.tabelaMedidas__local10 }}</td>{% endif %}
+                        {% if settings.tabelaMedidas__l11_c2 %}<td>{{ settings.tabelaMedidas__l11_c2 }}</td>{% endif %}
+                        {% if settings.tabelaMedidas__l11_c3 %}<td>{{ settings.tabelaMedidas__l11_c3 }}</td>{% endif %}
+                        {% if settings.tabelaMedidas__l11_c4 %}<td>{{ settings.tabelaMedidas__l11_c4 }}</td>{% endif %}
+                        {% if settings.tabelaMedidas__l11_c5 %}<td>{{ settings.tabelaMedidas__l11_c5 }}</td>{% endif %}
+                        {% if settings.tabelaMedidas__l11_c6 %}<td>{{ settings.tabelaMedidas__l11_c6 }}</td>{% endif %}
+                        {% if settings.tabelaMedidas__l11_c6 %}<td>{{ settings.tabelaMedidas__l11_c6 }}</td>{% endif %}
+                        {% if settings.tabelaMedidas__l11_c6 %}<td>{{ settings.tabelaMedidas__l11_c6 }}</td>{% endif %}
+                        {% if settings.tabelaMedidas__l11_c6 %}<td>{{ settings.tabelaMedidas__l11_c6 }}</td>{% endif %}
+                        {% if settings.tabelaMedidas__l11_c6 %}<td>{{ settings.tabelaMedidas__l11_c6 }}</td>{% endif %}
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
