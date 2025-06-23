@@ -28,15 +28,15 @@
         </div>
         {% endif %}
         <ul itemprop="review" itemscope itemtype="http://schema.org/Review">
-            {% set author = comment.customer.name != "" ? comment.customer.name : "Anônimo" %}
+            {% set author = comment.customer.name != "" ? comment.customer.name : "Anï¿½nimo" %}
 
-            {% if author == "Anônimo" %}
+            {% if author == "Anï¿½nimo" %}
             <span itemprop="author">{{ author }}</span>
             {% endif %}
 
             {% for comment in product.comments %}
 
-            {% set author = comment.customer.name != "" ? comment.customer.name : "Anônimo" %}
+            {% set author = comment.customer.name != "" ? comment.customer.name : "Anï¿½nimo" %}
 
             <span itemprop="name"> {{ comment.rating }} </span>
             <span itemprop="author">{{ author }}</span>
@@ -180,10 +180,14 @@
                 {% endif %}
                 {% endif %}
             </div>
+            {% endif %}
+            
+            <!-- Campo de frete para TODOS os produtos -->
             {% if not product.upon_request %}
             {% if productHelper.shipping %}
-            {{ productHelper.shipping() }}
-            {% endif %}
+            <div class="product__shipping">
+                {{ productHelper.shipping() }}
+            </div>
             {% endif %}
             {% endif %}
 
