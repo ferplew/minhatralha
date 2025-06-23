@@ -33,6 +33,102 @@ jQuery(document).ready(function () {
 })
 
 
+// Inject shipping calculator on product page
+if (jQuery('.page-product').length > 0) {
+    jQuery(document).ready(function () {
+        // Check if shipping calculator doesn't already exist
+        if (jQuery('#calculoFrete').length === 0) {
+            // Find where to inject (after product actions or before gifts)
+            const targetElement = jQuery('.page-product__actions').length ? 
+                jQuery('.page-product__actions') : 
+                jQuery('.product-primary-infos-wrapper');
+            
+            if (targetElement.length) {
+                const shippingHTML = `
+                    <div class="js-shipping-injected">
+                        <h3>Calcular Frete e Prazo</h3>
+                        <div class="shipping-form">
+                            <input type="text" id="js-cep-input" placeholder="Digite seu CEP" maxlength="9">
+                            <button type="button" id="js-calc-shipping">Calcular Frete</button>
+                        </div>
+                        <div class="shipping-results" id="js-shipping-results"></div>
+                    </div>
+                `;
+                
+                targetElement.after(shippingHTML);
+                
+                // Add event listener for shipping calculation
+                jQuery('#js-calc-shipping').on('click', function() {
+                    const cep = jQuery('#js-cep-input').val().replace(/\D/g, '');
+                    
+                    if (cep.length !== 8) {
+                        alert('Por favor, digite um CEP válido com 8 dígitos.');
+                        return;
+                    }
+                    
+                    // Show loading
+                    jQuery('#js-shipping-results').html('<p>Calculando frete...</p>').addClass('show');
+                    
+                    // Make AJAX call to Tray's shipping API
+                    const productId = jQuery('.page-product').attr('data-product-id') || 
+                                    jQuery('input[name="product_id"]').val() ||
+                                    window.location.pathname.match(/\d+/)?.[0];
+                    
+                    if (productId) {
+                        // Use Tray's shipping calculation endpoint
+                        jQuery.ajax({
+                            url: '/web_api/shipping_calculation/',
+                            method: 'POST',
+                            data: {
+                                product_id: productId,
+                                cep: cep,
+                                quantity: 1
+                            },
+                            success: function(response) {
+                                displayShippingResults(response);
+                            },
+                            error: function() {
+                                jQuery('#js-shipping-results').html('<p style="color: red;">Erro ao calcular frete. Tente novamente.</p>');
+                            }
+                        });
+                    } else {
+                        jQuery('#js-shipping-results').html('<p style="color: red;">Produto não encontrado para cálculo de frete.</p>');
+                    }
+                });
+                
+                // Format CEP input
+                jQuery('#js-cep-input').on('input', function() {
+                    let value = jQuery(this).val().replace(/\D/g, '');
+                    if (value.length >= 5) {
+                        value = value.replace(/^(\d{5})(\d)/, '$1-$2');
+                    }
+                    jQuery(this).val(value);
+                });
+            }
+        }
+        
+        function displayShippingResults(response) {
+            let html = '';
+            
+            if (response && response.shipping_options && response.shipping_options.length > 0) {
+                response.shipping_options.forEach(function(option) {
+                    html += `
+                        <div class="shipping-option">
+                            <div class="shipping-name">${option.name}</div>
+                            <div class="shipping-price">R$ ${option.price}</div>
+                            <div class="shipping-time">${option.delivery_time}</div>
+                        </div>
+                    `;
+                });
+            } else {
+                html = '<p>Não foi possível calcular o frete para este CEP.</p>';
+            }
+            
+            jQuery('#js-shipping-results').html(html).addClass('show');
+        }
+    });
+}
+
 jQuery(document).ready(function () {
     //Escurecer a página nos hovers no desktop:
     if (jQuery(window).width() > 991) {
